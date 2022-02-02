@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container p-3 my-2 border">
+<h3>请注册</h3>
+<form method="post">
+    您的“称呼”<br>
+    <input type="text" name="name_user" placeholder="输入您的“称呼”" autocomplete="off" required><br>
+    用户名（这将用于您每次登录）<br>
+    <input type="text" name="username" placeholder="输入您的用户名" autocomplete="off" required><br>
+    密码<br>
+    <!-- 密码输入框的 type 属性使用 password，会将输入值显示为圆点 -->
+    <input type="password" name="password" placeholder="输入您的密码" autocomplete="off" required><br>
+    您所耕种的“地区”<br>
+    <input type="text" name="name_area" placeholder="输入您的耕种地区" autocomplete="off" required><br>
+    <input class="btn" type="submit" name="submit" value="👉注册👈">
+</form>
+</div>
+{% endblock %}
