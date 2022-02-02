@@ -1,0 +1,117 @@
+{% extends 'base_detail.html' %}
+{% block content %}
+<div class="container p-3 my-2 border">
+    <!-- ha_detail 的专属功能-->
+    <h2>
+        <mark>
+            {% if current_user.is_authenticated %}
+            按提示输入即可查询：
+            {% else %}
+            您未登录，请先👆登录👆或👆注册👆，否则只能使用<B>“计算”</B>功能。
+            {% endif %}
+        </mark>
+    </h2>
+    <div align="center">
+        <!-- 在模板中可以直接使用 current_user 变量。以创建新条目表单为例，我们在表单外部添加一个 if 判断：
+                在模板渲染时，会先判断当前用户的登录状态（current_user.is_authenticated）。
+                    如果用户没有登录（current_user.is_authenticated 返回 False），
+                    就不会渲染如下代码块，即表单 <form method="POST" name="form">...</form> 部分的 HTML 代码 -->
+        {% if current_user.is_authenticated %}
+        <form method="POST" action="ha_detail" name="form_fuzzy_inquiry_name_area">
+            <!-- 模糊查询功能 -->
+            <h3>输入地区名以“模糊查询”，会显示“棉铃虫信息记录表”</h3>
+            <input type="text" name="fuzzy_inquiry_name_area" placeholder="可输入模糊字，如“伊”" autocomplete="off">
+            <!-- 文本输入框 -->
+            <input type="submit" name="submit" value="👉查询👈" class="btn" /><!-- 提交按钮 --><br>
+            <small>（如果不输入，直接点击👉查询👈会显示所有记录）</small><br>
+        </form>
+        {% else %}
+        您未登录，只有下面这个功能了：<br>
+        <form method="POST" action="/" name="form">
+            <!-- 指定提交方法为 POST -->
+            第一代棉铃虫数量(头/百株)
+            <input type="text" name="x1" placeholder="输入 X1（数值）" autocomplete="off" required><!-- 文本输入框 -->
+            <br>
+            第二代棉铃虫数量(头/百株)
+            <input type="text" name="x2" placeholder="输入 X2（数值）" autocomplete="off" required><!-- 文本输入框 -->
+            <br>
+            <input type="submit" name="submit" value="👉计算👈" class="btn" /><br><!-- 提交按钮 -->
+            产量损失率(%)
+            <input type="text" name="result" placeholder="得出 Y（数值）" readonly="readonly" value="{{ RESULT_visitor }}" />
+            <br>
+        </form>
+        {% endif %}{# 模板内容保护 #}
+    </div>
+    <!-- 在这逐行输出 棉铃虫信息(ha_info) 的记录 -->
+    <div align="right">
+        {# 使用 length 过滤器获取 list_ha 变量的长度 #}
+        {# {{ 变量|过滤器 }} #}
+        <!--有花括号不能用这种注释-->
+        已有 {{ list_ha | length }} 条记录。&emsp;
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('index') }}">返回主页</a>
+        {% endif %}{# 模板内容保护 #}
+    </div>
+    {% if current_user.is_authenticated %}
+    <div class="container mt-3">
+        <div class="table-responsive-lg">
+            <table class="table table-striped table-hover ">
+                <thead class="table-bordered table-success">
+                    <tr>
+                        <th>编号(id)</th>
+                        <th>X1(头/百株)</th>
+                        <th>X2(头/百株)</th>
+                        <th>Y(%)</th>
+                        <th><mark>调查地区</mark></th>
+                        <th>调查日期(年-月-日)</th>
+                        <th>调查人的“称呼”</th>
+                        <th>操作按钮</th>
+                    </tr>
+                <tbody>
+                    {% for row_ha in list_ha %} {# 迭代 list_ha 变量 #}
+                    {# 我需要在下面写入 if 筛选 #}
+                    {% if  Area_info.query.filter_by(id_area=row_ha.id_area).first().name_area in  list_area_name_area %}
+                    <tr>
+                        <td>
+                            {{ row_ha.id_ha | int }}
+                        </td>
+                        <td>
+                            <code>{{ row_ha.x1 | round(1, 'floor') }}</code>
+                        </td>
+                        <td>
+                            <code>{{ row_ha.x2 | round(1, 'floor') }}</code>
+                        </td>
+                        <td>
+                            <code>{{ row_ha.y | round(2, 'floor') }}</code>
+                        </td>
+                        <td>
+                            <code>{{ Area_info.query.filter_by(id_area=row_ha.id_area).first().name_area }}</code>
+                        </td>
+                        <td>
+                            <code>{{ row_ha.date }}{# 等同于 row_ha['x1'] #}</code>
+                        </td>
+                        <td>
+                            <code>{{ User_info.query.filter_by(id_user=row_ha.id_user).first().name_user }}</code>
+                        </td>
+                        <td class="table-info">
+                            <!-- <span class="float-right"> -->
+                            {% if current_user.is_authenticated %}
+                            <a class="btn" href="{{ url_for('edit', id_ha=row_ha.id_ha) }}">编辑</a>
+                            <form class="inline-form" method="post"
+                                action="{{ url_for('delete', id_ha=row_ha.id_ha) }}">
+                                <input class="btn" type="submit" name="delete" value="删除"
+                                    onclick="return confirm('您确定删除吗？')">
+                            </form>
+                            {% endif %}{# 模板内容保护 #}
+                            <!-- </span> -->
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %} {# 使用 endfor 标签结束 for 语句 #}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}{# 模板内容保护 #}
+</div>
+{% endblock %}
