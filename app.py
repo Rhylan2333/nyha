@@ -13,7 +13,7 @@ from flask_sqlalchemy import \
     SQLAlchemy  # 导入扩展类。Flask-SQLAlchemy 版本 2.4.0 Apr 25, 2019 可行
 from werkzeug.security import check_password_hash, generate_password_hash
 
-import formula
+import myha.formula as formula
 
 # 为了部署到线上，我添加了 wsgi.py 文件，这使得我得在 cmd 中先输入 set FLASK_APP=app.py，再输入 flask run 才能运行
 
@@ -31,7 +31,7 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(
-    os.path.dirname(app.root_path), 'myha/', os.getenv(
+    os.path.dirname(app.root_path), 'program-2022-02-02/', os.getenv(
         'DATABASE_FILE', 'my_ha_data.db'))  # 这个在线下一用就找不到数据库的位置，添加了 'myha/' 后可以在线下了。但是！线上一定不能要它！！！
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(

@@ -1,5 +1,5 @@
 from app import Admin_info, Area_info, User_info, Ha_info
-from formula import cal_the_complex_of_1_and_2_generation_of_Ha_0
+from myha.formula import cal_the_complex_of_1_and_2_generation_of_Ha_0
 from werkzeug.security import generate_password_hash
 from datetime import date
 
