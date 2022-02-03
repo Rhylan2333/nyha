@@ -67,5 +67,5 @@ def inject_user():  # 函数名可以随意修改
 # from myha import commands, errors, views  # 这条代码改一下！改成下面：
 from myha import views, errors, commands
 
-print("跑通！\n", "os.path.dirname(app.root_path)：",
-      os.path.dirname(app.root_path))
+# print("跑通！\n", "os.path.dirname(app.root_path)：",
+#       os.path.dirname(app.root_path))

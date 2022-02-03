@@ -13,4 +13,4 @@ if os.path.exists(dotenv_path):
 
 from myha import app
 
-print("Checked.")
+# print("Checked.")
