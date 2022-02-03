@@ -25,10 +25,10 @@
     </div>
     <!-- 在这逐行输出 棉铃虫信息(ha_info) 的记录 -->
     <div align="right">
-        {# 使用 length 过滤器获取 list_area 变量的长度 #}
+        {# 使用 length 过滤器获取 list_user 变量的长度 #}
         {# {{ 变量|过滤器 }} #}
         <!--有花括号不能用这种注释-->
-        已有 {{ list_area | length }} 条记录。&emsp;
+        已有 {{ list_user | length }} 条记录。&emsp;
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('index') }}">返回主页</a>
         {% endif %}{# 模板内容保护 #}
@@ -48,27 +48,27 @@
                         <th>操作按钮</th>
                     </tr>
                 <tbody>
-                    {% for row_area in list_area %} {# 迭代 row_area 变量 #}
+                    {% for row_user in list_user %} {# 迭代 row_user 变量 #}
                     {# 我需要在下面写入 if 筛选 #}
-                    {% if  Area_info.query.filter_by(id_area=row_area.id_area).first().name_area in  list_area_admin_name_area %}
+                    {% if  User_info.query.filter_by(id_area=row_user.id_area).first().id_area in  list_area_admin_id_area %}
                     <tr>
                         <td>
-                            {{ row_area.id_area | int }}
+                            {{ row_user.id_area | int }}
                         </td>
                         <td>
-                            <code>{{ row_area.name_area }}</code>
+                            <code>{{ Area_info.query.filter_by(id_area=row_user.id_area).first().name_area }}</code>
                         </td>
                         <td>
-                            <code>{{ User_info.query.filter_by(id_area=row_area.id_area).first().id_user | int }}</code>
+                            <code>{{ row_user.id_user | int }}</code>
                         </td>
                         <td>
-                            <code>{{ User_info.query.filter_by(id_area=row_area.id_area).first().name_user }}</code>
+                            <code>{{ row_user.name_user }}</code>
                         </td>
                         <td>
-                            <code>{{ User_info.query.filter_by(id_area=row_area.id_area).first().username }}</code>
+                            <code>{{ row_user.username }}</code>
                         </td>
                         <td>
-                            <code>{{ User_info.query.filter_by(id_area=row_area.id_area).first().id_area }}</code>
+                            <code>{{ row_user.id_area | int }}</code>
                         </td>
                         <td class="table-info">
                             <!-- <span class="float-right"> -->

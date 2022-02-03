@@ -1,4 +1,4 @@
-from app import Admin_info, Area_info ,User_info, Ha_info, db  # 导入模型类、db变量
+from myha.models import Admin_info, Area_info ,User_info, Ha_info, db  # 导入模型类、db变量
 
 id_user=User_info.query.filter_by(username='caicai').first().id_user  # 就在这外键连接，用 filter_by()
 print("id_user 是 "+str(id_user))

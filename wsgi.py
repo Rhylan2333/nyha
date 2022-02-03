@@ -11,5 +11,6 @@ if os.path.exists(dotenv_path):
 
 # 这两个环境变量的具体定义，我们将在远程服务器环境创建新的 .env 文件写入。
 
-import app
+from myha import app
+
 print("Checked.")
