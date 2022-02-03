@@ -95,7 +95,7 @@
                         </td>
                         <td class="table-info">
                             <!-- <span class="float-right"> -->
-                            {% if current_user.is_authenticated %}
+                            {% if current_user.is_authenticated and current_user.id_user==row_ha.id_user %}
                             <a class="btn" href="{{ url_for('edit', id_ha=row_ha.id_ha) }}">编辑</a>
                             <form class="inline-form" method="post"
                                 action="{{ url_for('delete', id_ha=row_ha.id_ha) }}">

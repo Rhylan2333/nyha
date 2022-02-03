@@ -17,7 +17,6 @@ NAME_USER = ''
 list_area_name_area = []  # 虽然说每次查询前都要清空，但……这里会不会出现“头咬尾巴”的情况啊
 list_area_admin_id_area = []
 
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     global y0, y00, NAME_USER
@@ -94,7 +93,7 @@ def index():
         list_ha_limit=list_ha_limit,
         RESULT=str(y0),
         RESULT_visitor=str(y00),
-        NAME_USER=NAME_USER
+        NAME_USER=NAME_USER,
     )  # 这里不能用 NAME_USER=current_user.name_user 了，因为“登出”后会报错。
 
 
@@ -283,7 +282,6 @@ def login():
                 ).id_area  # 就在这外键连接，用 filter_by()。这样就可以在 '/' 下把 id_area 的值赋给 row_ha 中的 id_area 了。
                 NAME_USER = User_info.query.filter_by(
                     username=username).first().name_user
-
                 login_user(row_user)  # 登入用户。注意这里要选用特定的 column
                 flash('登录成功')
                 return redirect(url_for('index'))  # 重定向到主页
