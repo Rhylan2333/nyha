@@ -347,7 +347,7 @@ def register():
         return render_template('register.html')
 
 
-# 与登录相对，登出操作则需要调用 logout_user() 函数，使用下面的视图函数实现
+# 用户注册登出。与登录相对，登出操作则需要调用 logout_user() 函数，使用下面的视图函数实现
 @app.route('/logout')
 @login_required  # 用于视图保护，后面会详细介绍
 def logout():
