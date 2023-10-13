@@ -8,14 +8,18 @@
 
 ## 2.功能分析、设计模块图
 
-![fig.1](./statics/fig.1.jpg)
+![fig.1](./figures/fig.1.jpg)
 
 图1 功能分析、设计模块图
 
-![fig.2](./statics/fig.2.jpg)
+![fig.2](./figures/fig.2.jpg)
 
 图2 实体、属性、联系分析和ER图
 
-![fig.3](./statics/fig.3.jpg)
+![fig.3](./figures/fig.3.jpg)
 
 图3 ER图转换后的关系模式
+
+---
+
+![fig.4](./figures/fig.4.jpg)
